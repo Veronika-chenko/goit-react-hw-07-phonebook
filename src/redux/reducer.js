@@ -1,4 +1,5 @@
-import { combineReducers } from "redux";
+import { createReducer } from "@reduxjs/toolkit";
+import { addContact, deleteContact, showFilteredContacts} from "./actions";
 
 const contactsInitialState = [
     { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
@@ -7,50 +8,23 @@ const contactsInitialState = [
     { id: "id-4", name: "Annie Copeland", number: "227-91-26" }
 ]
 
-const contactsReducer = (state = contactsInitialState, action) => {
-    switch (action.type) {
-        case "contacts/addContact":
-            return [...state, action.payload]
-        case "contacts/deleteContact":
-            return state.filter(contact => contact.id !== action.payload);
-        default:
-            return state;
-    }
-}
+export const contactsReducer = createReducer(contactsInitialState, {
+    [addContact]: (state, action) => state.push(action.payload),
+    [deleteContact]: (state, action) => state.filter(contact => contact.id !== action.payload),
+})
+
 
 const filterInitialState = "";
 
-const filterReducer = (state = filterInitialState, action) => {
+export const filterReducer = createReducer(filterInitialState, {
+    [showFilteredContacts]: (_, action) => action.payload,
+})
+
+export const filterReducer1 = (state = filterInitialState, action) => {
     switch (action.type) {
-        case "filter/setFilteredContacts":
+        case showFilteredContacts.type:
             return action.payload
         default:
         return state;
     }        
 }
-
-export const rootReducer = combineReducers({
-    contacts: contactsReducer,
-    filter: filterReducer,
-})
-
-// #1
-// увага, з яким саме state працюєш
-
-// - return {
-//     ...state,
-//     contacts: [
-//         ...state.contacts,
-//         action.payload,
-//     ],
-// };
-
-// - return [...state, action.payload]
-
-
-//   for (const contact of contacts) {
-//     if (contact.name === newContact.name) {
-//       alert(`${newContact.name} is already in contacts.`);
-//       return;
-//     }
-//   }

@@ -24,11 +24,5 @@ export const Filter = () => {
   );
 };
 
-// value={filterValue} onChange={onChange}
-// Filter.prototype = {
-//   value: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
-
 // #1 (attention)
 // dispatch(value); error
