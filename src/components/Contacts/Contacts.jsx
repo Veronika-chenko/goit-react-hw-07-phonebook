@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilterValue } from 'redux/selectors';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from 'redux/contactsSlice';
 import { ContactItem, ContactDeleteButton } from './Contacts.styled';
 
 const getFilteredContacts = (contacts, filterValue) => {

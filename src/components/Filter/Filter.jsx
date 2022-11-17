@@ -2,13 +2,14 @@
 import { FilterWrap } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilterValue } from 'redux/selectors';
-import { showFilteredContacts } from 'redux/actions';
+import { setFilterValue } from 'redux/filterSlice';
 
 export const Filter = () => {
   const filterValue = useSelector(getFilterValue);
   const dispatch = useDispatch();
+
   const handleInputChange = e => {
-    dispatch(showFilteredContacts(e.target.value));
+    dispatch(setFilterValue(e.target.value));
   };
 
   return (
