@@ -4,7 +4,7 @@ export const ContactItem = styled.li`
     padding: 4px 8px;
 `
 
-export const ContactDeleteBitton = styled.button`
+export const ContactDeleteButton = styled.button`
     padding: 4px 8px;
 
     color: #000000;

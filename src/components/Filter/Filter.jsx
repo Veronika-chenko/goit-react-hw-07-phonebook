@@ -1,22 +1,34 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { FilterWrap } from './Filter.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilterValue } from 'redux/selectors';
+import { showFilteredContacts } from 'redux/actions';
 
+export const Filter = () => {
+  const filterValue = useSelector(getFilterValue);
+  const dispatch = useDispatch();
+  const handleInputChange = e => {
+    dispatch(showFilteredContacts(e.target.value));
+  };
 
-export const Filter = ({ value, onChange }) => {
-    return (
-        <FilterWrap>
-            <label htmlFor="filter">
-                Find contacts by name</label>
-            <input
-            id="filter"
-            type="text"
-            value={value}
-            onChange={onChange} />
-        </FilterWrap>
-    )
-}
+  return (
+    <FilterWrap>
+      <label htmlFor="filter">Find contacts by name</label>
+      <input
+        id="filter"
+        type="text"
+        value={filterValue}
+        onChange={handleInputChange}
+      />
+    </FilterWrap>
+  );
+};
 
-Filter.prototype = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-}
+// value={filterValue} onChange={onChange}
+// Filter.prototype = {
+//   value: PropTypes.string.isRequired,
+//   onChange: PropTypes.func.isRequired,
+// };
+
+// #1 (attention)
+// dispatch(value); error
