@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import { FilterWrap } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilterValue } from 'redux/selectors';
@@ -24,6 +23,3 @@ export const Filter = () => {
     </FilterWrap>
   );
 };
-
-// #1 (attention)
-// dispatch(value); error

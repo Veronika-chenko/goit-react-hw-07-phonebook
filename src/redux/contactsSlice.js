@@ -1,25 +1,29 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { toast } from "react-toastify";
 
-const contactsInitialState = [
-    { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-    { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-    { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-    { id: "id-4", name: "Annie Copeland", number: "227-91-26" }
-]
+import contacts from "../contacts.json"
+
+const persistConfig = {
+    key: 'contacts',
+    storage,
+};
 
 const contactsSlice = createSlice({
     name: "contacts",
-    initialState: contactsInitialState,
+    initialState: {contacts},
     reducers: {
         addContact: {
             reducer(state, action) {
-                for (const contact of state) {
+                const { contacts } = state;
+                for (const contact of contacts) {
                     if (contact.name === action.payload.name) {
-                        alert(`${action.payload.name} is already in contacts.`);
+                        toast.error(`${action.payload.name} is already in contacts.`)
                         return;
                     }
                 }
-                state.push(action.payload);
+                contacts.push(action.payload);
             },
             prepare(name, number) {
                 return {
@@ -32,14 +36,16 @@ const contactsSlice = createSlice({
             },
         },
         deleteContact(state, action) {
-            const deleteIndex = state.findIndex(contact => contact.id === action.payload);
-            state.splice(deleteIndex, 1);
+            const { contacts } = state;
+            const deleteIndex = contacts.findIndex(contact => contact.id === action.payload);
+            contacts.splice(deleteIndex, 1);
         },
     },
 })
 
 export const { addContact, deleteContact } = contactsSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+export const contactsReducer = persistReducer(persistConfig, contactsSlice.reducer);
+
 
 // #1
 // forgot:

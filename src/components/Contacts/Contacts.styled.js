@@ -5,6 +5,7 @@ export const ContactItem = styled.li`
 `
 
 export const ContactDeleteButton = styled.button`
+    margin-left: 8px;
     padding: 4px 8px;
 
     color: #000000;
