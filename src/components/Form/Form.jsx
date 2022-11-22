@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { FormWrap, FormButton } from './Form.styled';
 
 export const Form = () => {
@@ -10,7 +10,7 @@ export const Form = () => {
     const form = e.target;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    dispatch(addContact(name, number));
+    dispatch(addContact({ name, number }));
     form.reset();
   };
 

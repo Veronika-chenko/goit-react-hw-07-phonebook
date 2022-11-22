@@ -1,19 +1,29 @@
-import { Form } from './Form/Form';
-import { ContactList } from './Contacts/Contacts';
-import { Filter } from './Filter/Filter';
-import { TopTitle, Title } from './App.styled';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from '../redux/operations';
+import { selectIsLoading, selectError } from 'redux/selectors';
+import { Form } from './Form';
+import { Filter } from './Filter';
+import { Contacts } from './Contacts';
+import { TopTitle, Title, InfoText } from './App.styled';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <>
       <TopTitle>Phonebook</TopTitle>
       <Form />
       <Title>Contacts</Title>
       <Filter />
-      <ContactList />
-      <ToastContainer autoClose={2000} theme="colored" hideProgressBar="true" />
+      {isLoading && !error && <InfoText>Request in progress...</InfoText>}
+      {error && <InfoText>Oops, something went wrong</InfoText>}
+      <Contacts />
     </>
   );
 };

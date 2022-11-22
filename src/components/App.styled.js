@@ -6,3 +6,7 @@ export const TopTitle = styled.h1`
 export const Title = styled.h2`
     margin-bottom: 12px;
 `
+
+export const InfoText = styled.p`
+    margin-bottom: 8px;
+`
