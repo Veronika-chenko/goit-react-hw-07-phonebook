@@ -19,6 +19,7 @@ export const Contacts = () => {
 
   return (
     <ul>
+      {visibleContacts.length === 0 && <p>No matches found</p>}
       {visibleContacts.map(({ id, name, number }) => (
         <ContactItem key={id}>
           {name}: {number}
